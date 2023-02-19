@@ -1,0 +1,45 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}
+    Order List
+{% endblock title %}
+
+{% block content %}
+
+
+    <div class="container my-5">
+        <div class="row">
+            <h3> Order List</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order %}
+                        <tr>
+                            <td>{{item.product.title}}</td>
+                            <td>{{item.product.price}}</td>
+                            <td>{{item.quantity}}
+                                
+                            </td>
+                            <td>{{item.total_cost}}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h5> Order Price : {{tot}} Taka</h5>
+            </div>
+            
+            
+
+{% endblock content %}

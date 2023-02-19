@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    {% extends "app/base.html" %}
+    {% load static %}
+    {% block title %}
+        Register
+    {% endblock title %}
+{% block content %}
+    <form action="/register" method="post">
+        {% csrf_token %} 
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+            </p>
+        {% endfor %}
+        <input type="submit" name="Create User">
+        <br>
+        {{form.errors}}
+            <a href="{% url 'login' %}">Already Registered?</a>
+        </form>
+{% endblock content %}
+</html>

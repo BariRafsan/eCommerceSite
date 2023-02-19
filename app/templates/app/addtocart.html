@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    {% extends "app/base.html" %}
+    {% load static %}
+    {% block title %}
+        Cart
+    {% endblock title %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <div class="row">
+            <h3> Shopping  Cart</h3>
+            {% if size != 0 %}
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                        <tr>
+                            <td>{{item.product.title}}</td>
+                            <td>{{item.product.price}}</td>
+                            <td>{{item.quantity}}
+                                
+                            </td>
+                            <td>{{item.total_cost}}</td>
+                            <td><form action="/remove-from-cart" class="d-inline">
+                                <input type="hidden" name="cart_id" value="{{item.id}}">
+                                <button type="submit" class="minus-cart btn"><i class="fas fa-minus-square fa-lg"></i></button></form> 
+                                <form action="/plus-to-cart" class="d-inline">
+                                    <input type="hidden" name="cart_id" value="{{item.id}}"><button type="submit" class="plus-cart btn"><i class="fas fa-plus-square fa-lg"></i></button></form> 
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Cart Total</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p>Subtotal: {{subtotal}}</p>
+                        <p>Tax: {{tax}}</p>
+                        <p>Total: {{total}}</p>
+                        <form action="/checkout" class="d-inline">
+                            
+                            <input type="hidden" name="cart_id" value="{{cart.user}}">
+                            
+                            
+                        <button type="submit" class="btn btn-success"><a  href="{% url 'checkout' %}" class="text-decoration-none text-white">Checkout</a></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+            <h3>Cart is empty</h3>
+            {% endif %}
+{% endblock content %}
+</html>
